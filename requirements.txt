@@ -1,0 +1,11 @@
+plotly
+matplotlib
+numpy
+pandas
+scikit-learn
+scipy
+pytest
+# TO INSTALL FBPROPHET:
+# 1. manually install c++ compiler: conda install libpython m2w64-toolchain -c msys2
+# 2. manually install pystan: pip install pystan
+# 2. manually install fbprophet: pip install fbprophet
