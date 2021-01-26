@@ -5,6 +5,8 @@ pandas
 scikit-learn
 scipy
 pytest
+# wheel # only to publish the package
+# twine # only to publish the package
 # TO INSTALL FBPROPHET:
 # 1. manually install c++ compiler: conda install libpython m2w64-toolchain -c msys2
 # 2. manually install pystan: pip install pystan

@@ -10,7 +10,7 @@ with open("README.md", "r") as readme_file:
 
 setup(
     name="prophet_pack",  # directory name right below src/
-    version="2021.01",
+    version="2021.1",
     author="Federico De Cillia",
     description="Python package developed to simplify Prophet application to any data.",
     long_description=readme,
@@ -25,7 +25,7 @@ setup(
         ],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: MIT License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.7"
