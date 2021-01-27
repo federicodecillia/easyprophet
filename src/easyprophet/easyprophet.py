@@ -215,11 +215,11 @@ def fit_predict(
             (pd.date_range format: 'H':hourly, 'D':Daily, 'MS':Month Start, 'M':Month End)
         future_pred_period: N° of periods (hours/days/months) to predict in the future. False for no future predictions.
         growth: linear or logistic trend. If logistic you need to provide cap and floor of your predictions as well as historic data.
-                Recommendation: Generally use linear, unless you know of a particular logistic trend with saturation
+            Recommendation: Generally use linear, unless you know of a particular logistic trend with saturation
         cap: Cap value for logistic growth (saturating maximum).
-          Cap does not have to be constant. If the market size is growing, then cap can be an increasing sequence.
+            Cap does not have to be constant. If the market size is growing, then cap can be an increasing sequence.
         floor: Floor value for logistic growth (saturating minimum).
-          To use a logistic growth trend with a saturating minimum, a maximum capacity must also be specified.
+            To use a logistic growth trend with a saturating minimum, a maximum capacity must also be specified.
         yearly_seasonality: Whether to include yearly_seasonality. Can be 'auto', True, False.
         weekly_seasonality: Whether to include weekly_seasonality. Can be 'auto', True, False.
         daily_seasonality: Whether to include daily_seasonality. Can be 'auto', True, False.
