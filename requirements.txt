@@ -1,10 +1,11 @@
-plotly
-matplotlib
+datetime
+matplotlib==3.2.2
 numpy
 pandas
+plotly
 scikit-learn
 scipy
-pytest
+# pytest
 # wheel # only to publish the package
 # twine # only to publish the package
 # TO INSTALL FBPROPHET:
