@@ -1,10 +1,20 @@
-# Prophet Pack
+# easyprophet
 
 Python package developed to simplify [**Prophet**](https://facebook.github.io/prophet/) application to any data. \
 It completely relies on the [**Prophet package**](https://github.com/facebook/prophet) and on its updates.
 
-Project Structure
------------------
+
+# Installation
+To install easyprophet:\
+`pip install easyprophet`
+
+fbprophet has its own installation instructions, please refer [here](https://facebook.github.io/prophet/docs/installation.html). \
+In short these are the recommended ordered steps to correctly install fbprophet:
+1. install c++ compiler: `conda install libpython m2w64-toolchain -c msys2`
+2. install pystan: `pip install pystan`
+3. install fbprophet: `pip install fbprophet`
+
+# Project Structure
 
 ```
 .
