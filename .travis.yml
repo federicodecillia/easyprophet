@@ -7,4 +7,6 @@ install:
   - pip install fbprophet
   - pip install -e .      # installs your package as a wheel into Travis’s virtual environment.
 script:
-  - pytest
+  - pytest --cov=easyprophet
+after_success:
+  — coveralls
