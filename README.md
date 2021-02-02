@@ -1,4 +1,12 @@
-# easyprophet
+# Prophet: Automatic Forecasting Procedure
+
+![Build](https://github.com/facebook/prophet/workflows/Build/badge.svg)
+[![Pypi_Version](https://img.shields.io/pypi/v/fbprophet.svg)](https://pypi.python.org/pypi/fbprophet)
+[![Conda_Version](https://anaconda.org/conda-forge/fbprophet/badges/version.svg)](https://anaconda.org/conda-forge/fbprophet/)
+
+
+# easyprophet: Simplified Automatic Forecasting Procedure
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 Python package developed to simplify [**Prophet**](https://facebook.github.io/prophet/) application to any data. \
 It completely relies on the [**Prophet package**](https://github.com/facebook/prophet) and on its updates.
