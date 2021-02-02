@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.com/federicodecillia/easyprophet.svg?branch=main)](https://travis-ci.com/federicodecillia/easyprophet)
 [![Pypi_Version](https://img.shields.io/pypi/v/easyprophet.svg)](https://pypi.python.org/pypi/easyprophet)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+[![Coverage Status](https://coveralls.io/repos/github/federicodecillia/easyprophet/badge.svg?branch=main)](https://coveralls.io/github/federicodecillia/easyprophet?branch=main)
 
 Python package developed to simplify [**Prophet**](https://facebook.github.io/prophet/) application to any data. \
 It completely relies on the [**Prophet package**](https://github.com/facebook/prophet) and on its updates.
