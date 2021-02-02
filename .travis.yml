@@ -3,7 +3,6 @@ language: python
 python: 3.7.2
 install:
   - pip install -r requirements_dev.txt
-  - conda install libpython m2w64-toolchain -c msys2
   - pip install pystan
   - pip install fbprophet
   - pip install -e .      # installs your package as a wheel into Travis’s virtual environment.
