@@ -1,4 +1,5 @@
 # easyprophet: Simplified Automatic Forecasting Procedure
+[![Pypi_Version](https://img.shields.io/pypi/v/easyprophet.svg)](https://pypi.python.org/pypi/easyprophet)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 Python package developed to simplify [**Prophet**](https://facebook.github.io/prophet/) application to any data. \
