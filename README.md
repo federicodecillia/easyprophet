@@ -1,4 +1,5 @@
 # easyprophet: Simplified Automatic Forecasting Procedure
+[![Build Status](https://travis-ci.com/federicodecillia/easyprophet.svg?branch=main)](https://travis-ci.com/federicodecillia/easyprophet)
 [![Pypi_Version](https://img.shields.io/pypi/v/easyprophet.svg)](https://pypi.python.org/pypi/easyprophet)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
