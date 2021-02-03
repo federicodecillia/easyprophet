@@ -12,6 +12,7 @@ wheel # to publish the package
 twine # to publish the package
 pytest-cov # to show code test coverage
 coveralls  # to provide history of code coverage
+tox #  create virtualenvs & check compatibility with different python versions
 
 # TO INSTALL FBPROPHET:
 Cython>=0.22
