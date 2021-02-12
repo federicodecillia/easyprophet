@@ -6,6 +6,7 @@ plotly
 scikit-learn
 scipy
 
+# TO PUBLISH THE PYTHON PACKAGE AND TEST THE ENVIRONMENT
 pytest
 black
 wheel # to publish the package
@@ -18,15 +19,15 @@ tox #  create virtualenvs & check compatibility with different python versions
 Cython>=0.22
 cmdstanpy==0.9.5
 pystan>=2.14
-# numpy>=1.15.4
-# pandas>=1.0.4
-matplotlib>=2.0.0
 LunarCalendar>=0.0.9
 convertdate>=2.1.2
 holidays>=0.10.2
 setuptools-git>=1.2
 python-dateutil>=2.8.0
 tqdm>=4.36.1
+fbprophet
+
+# IN CASE OF ISSUES WHEN INSTALLING FBPROPHET YOU CAN INSTALL IT IN THE MANUAL WAY:
 # 1. manually install c++ compiler: conda install libpython m2w64-toolchain -c msys2
 # 2. manually install pystan: pip install pystan
 # 2. manually install fbprophet: pip install fbprophet

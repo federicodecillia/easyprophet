@@ -24,8 +24,8 @@ In short these are the recommended ordered steps to correctly install fbprophet:
 
 ```
 .
-- config                 <- Configuration files
-- docs                   <- Documentation
+<!-- - config                 <- Configuration files -->
+<!-- - docs                   <- Documentation -->
 - notebooks              <- Jupyter/Colab Notebooks containing easyprophet examples
 - src                    <- Source code for easy_prophet
     - easyprophet
@@ -36,8 +36,12 @@ In short these are the recommended ordered steps to correctly install fbprophet:
 - tests                  <- Test suite
 - .gitignore             <- Specifies intentionally untracked files to ignore
 - AUTHORS.md             <- Credits
+- CHANGELOG.md           <- Specify changes and features introduced in any release
+- CODE_OF_CONDUCT.md     <- Code of conduct to which contributors must adhere
 - LICENSE                <- License 
-- README.md              <- Contains info & links about the project
-- requirements.txt       <- Package dependencies
+- README.md              <- This File! Contains info & links about the project
+- requirements_dev.txt   <- Python package dependencies list for developers
+- requirements.txt       <- Python package dependencies list, required to run the project
 - setup.py               <- Build script for setuptools (to make the pack pip installable)
+- tox.ini                <- Contains info about the python tox test environment
 ```
