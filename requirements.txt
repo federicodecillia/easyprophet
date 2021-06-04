@@ -10,7 +10,7 @@ pytest
 # TO INSTALL FBPROPHET:
 Cython>=0.22
 cmdstanpy==0.9.5
-pystan>=2.14
+pystan~=2.19            # pystan 3 don't support windows anymore
 LunarCalendar>=0.0.9
 convertdate>=2.1.2
 holidays>=0.10.2

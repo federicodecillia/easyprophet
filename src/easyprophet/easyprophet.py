@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import os
 from datetime import datetime, date
-import time
 import warnings
 from itertools import product
 import matplotlib.pyplot as plt
@@ -15,7 +14,6 @@ from fbprophet import Prophet
 from fbprophet.plot import add_changepoints_to_plot
 from fbprophet.diagnostics import cross_validation
 from fbprophet.diagnostics import performance_metrics
-from fbprophet.plot import plot_cross_validation_metric
 from fbprophet.plot import plot_plotly
 import plotly.offline as py
 
@@ -45,9 +43,7 @@ def create_grid(param_grid: dict) -> object:
                 yield params
 
 
-def create_ts(
-    df: pd.DataFrame, date_var: str, y_var: str, x_vars: list = False, sort_ts: bool = False
-):
+def create_ts(df: pd.DataFrame, date_var: str, y_var: str, x_vars: list = False, sort_ts: bool = False):
     """Transform the input df in order to be used by prophet.
         this means keeping just "ds", "y_var" and optional "x_vars" columns.
 
@@ -87,12 +83,7 @@ def cross_validation_compare_models(cross_valid_params: list, metric: str = "mse
     Returns:
         pd.DataFrame: df with cross_validation result.
     """
-    assert metric in [
-        "mse",
-        "rmse",
-        "mae",
-        "mape",
-    ], "metric must be either mse, rmse, mae or mape"
+    assert metric in ["mse", "rmse", "mae", "mape"], "metric must be either mse, rmse, mae or mape"
     df_ps = pd.DataFrame()
 
     for cross_valid_param in cross_valid_params:
@@ -102,29 +93,22 @@ def cross_validation_compare_models(cross_valid_params: list, metric: str = "mse
         df_p["period"] = cross_valid_param["period"]
         df_ps = df_ps.append(df_p)
 
-    df_ps = df_ps.loc[
-        :,
-        df_ps.columns.isin(
-            list(
-                [
-                    "initial",
-                    "horizon",
-                    "period",
-                    "mse",
-                    "rmse",
-                    "mae",
-                    "mape",
-                    "coverage",
-                ]
-            )
-        ),
-    ]
+    df_ps = df_ps.loc[:, df_ps.columns.isin(list(["initial",
+                                                  "horizon",
+                                                  "period",
+                                                  "mse",
+                                                  "rmse",
+                                                  "mae",
+                                                  "mape",
+                                                  "coverage",
+                                                  ]))]
     return df_ps
 
 
 def detect_anomalies(forecast: pd.DataFrame) -> pd.DataFrame:
     """Identify anomalies.
-        That is observations outside the interval of confidence defined using yhat_lower/yhat_upper, and create the "importance" variable as the relative
+        That is observations outside the interval of confidence defined using yhat_lower/yhat_upper,
+        and create the "importance" variable as the relative
         deltas between observed values and lower/upper values of the interval of confidence.
 
     Args:
@@ -199,7 +183,7 @@ def fit_predict(
     changepoint_prior_scale: float = 0.05,
     mcmc_samples: int = 0,
     uncertainty_samples: int = 1000,
-) -> pd.DataFrame:
+) -> tuple:
     """Fit prophet model, returning the forecast df containing predictions & their interval of confidence.
 
     Args:
@@ -210,11 +194,11 @@ def fit_predict(
             Can be 'auto'(standardize if not binary), True, False (default="auto")
         plot_predictions: Whether to plot the Predictions & Observed values or not.
         plot_pred_interactive: Whether to plot Predictions & Observed values using an Interactive plots of plotly.
-        plot_components: Whether to plot forecasts components: Trend & seasonalities (weekly/yearly & holidays if added).
+        plot_components: Whether to plot forecasts components: Trend & seasonalities.
         freq_data: Frequency of the data, used to make future predictions.
             (pd.date_range format: 'H':hourly, 'D':Daily, 'MS':Month Start, 'M':Month End)
         future_pred_period: N° of periods (hours/days/months) to predict in the future. False for no future predictions.
-        growth: linear or logistic trend. If logistic you need to provide cap and floor of your predictions as well as historic data.
+        growth: linear or logistic trend. If logistic you need to provide cap and floor of your predictions.
             Recommendation: Generally use linear, unless you know of a particular logistic trend with saturation
         cap: Cap value for logistic growth (saturating maximum).
             Cap does not have to be constant. If the market size is growing, then cap can be an increasing sequence.
@@ -248,14 +232,14 @@ def fit_predict(
             Defaults to 0.8 for the first 80%. Not used if `changepoints` is specified.
             Recommendation: Use the default
         changepoint_prior_scale: Flexibility of automatic changepoint selection & consequently of the trend.
-            Increase it to make the trend more flexible allowing many changepoints, but risking overfitting(default=0.05).
-            Recommendation: Use the default, or try up to 0.2
+            Increase it to make the trend more flexible allowing many changepoints, but risking overfitting.
+            Recommendation: Use the default (0.05), or try up to 0.2
         mcmc_samples: Integer, if 0, will do MAP (Maximum a Posteriori) estimation to train and predict.
             If >0, will do full Bayesian inference with the specified number of MCMC (Markov Chain Monte Carlo) samples.
             Recommendation: Use the default
         uncertainty_samples: Number of simulated draws used to estimate uncertainty intervals.
             Settings this value to 0 or False will disable uncertainty estimation and speed up the calculation.
-            Recommendation: Use the default, unless you want to speed-up the environment sacrificing precision of the model.
+            Recommendation: Use default, unless you want to speed-up the environment sacrificing model precision.
 
     Returns:
         forecast: a dataframe containing past observations + forecasts
@@ -336,7 +320,7 @@ def fit_predict(
             "(date points where the time series have abrupt changes in the trajectory)"
         )
         fig1 = m.plot(forecast)
-        a = add_changepoints_to_plot(fig1.gca(), m, forecast)
+        fig1_ = add_changepoints_to_plot(fig1.gca(), m, forecast)
     # Plot predictions & Observed values, using an Interactive plots of plotly
     if plot_pred_interactive:
         print("1.B Plot of Observed & Predicted values - in interactive window")
@@ -361,12 +345,8 @@ def fit_predict(
     )
 
     # Keep just the useful columns
-    forecast = forecast.loc[
-        :,
-        forecast.columns.isin(
-            list(["ds", "trend", "yhat", "yhat_lower", "yhat_upper", "fact"]) + seasonalities
-        ),
-    ]
+    forecast = forecast.loc[:, forecast.columns.isin(
+        list(["ds", "trend", "yhat", "yhat_lower", "yhat_upper", "fact"]) + seasonalities)]
     return forecast, m, seasonalities
 
 
@@ -412,70 +392,6 @@ def list_seasonalities(
         elif isinstance(x_vars, list):
             seasonalities = seasonalities + x_vars + [sub + "_fact" for sub in x_vars]
     return seasonalities
-
-
-# todo: adapt prophet_pipeline
-# def prophet_pipeline(
-#     df: pd.DataFrame,
-#     var: str,
-#     rim_cat: str,
-#     df_holidays: pd.DataFrame = None,
-#     freq_data: str = "D",
-#     future_pred_period: int = False,
-#     growth: str = "linear",
-#     yearly_seasonality: str = "auto",
-#     weekly_seasonality: str = "auto",
-#     daily_seasonality: str = "auto",
-#     custom_seasonality: list = False,
-#     seasonality_mode: str = "additive",
-#     seasonality_prior_scale: float = 10.0,
-#     holidays_prior_scale: float = 10.0,
-#     holidays_country: str = None,
-#     interval_width: object = 0.95,
-#     changepoints: list = None,
-#     n_changepoints: int = 25,
-#     changepoint_range: object = 0.8,
-#     changepoint_prior_scale: float = 0.05,
-# ):
-#     """Pipeline that will be run in parallel."""
-
-#     # create df & make predictions
-#     ts = df[df["id_rimcat"] == rim_cat]  # keep just the rim_cat selected
-#     ts = create_ts(df=ts, date_var="date", y_var=var, x_vars=False, sort_ts=False)
-#     df_pred, m, seasonalities = fit_predict(
-#         df=ts,
-#         df_holidays=df_holidays,
-#         x_vars=False,
-#         plot_predictions=False,
-#         plot_pred_interactive=False,
-#         plot_components=False,
-#         freq_data=freq_data,
-#         future_pred_period=future_pred_period,
-#         growth=growth,
-#         yearly_seasonality=yearly_seasonality,
-#         weekly_seasonality=weekly_seasonality,
-#         daily_seasonality=daily_seasonality,
-#         custom_seasonality=custom_seasonality,
-#         seasonality_mode=seasonality_mode,
-#         seasonality_prior_scale=seasonality_prior_scale,
-#         holidays_prior_scale=holidays_prior_scale,
-#         holidays_country=holidays_country,
-#         interval_width=interval_width,
-#         changepoints=changepoints,
-#         n_changepoints=n_changepoints,
-#         changepoint_range=changepoint_range,
-#         changepoint_prior_scale=changepoint_prior_scale,
-#     )
-
-#     # Detect anomalies
-#     df_anomalies = detect_anomalies(df_pred)
-#     df_anomalies["id_rimcat"] = rim_cat
-#     df_anomalies["var"] = var
-#     return df_anomalies
-
-
-# def prophet_initializer(args):
-#     return prophet_pipeline(*args)
 
 
 class suppress_stdout_stderr(object):
