@@ -8,6 +8,7 @@ from datetime import datetime, date
 import warnings
 from itertools import product
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 # from concurrent.futures import ProcessPoolExecutor
 from fbprophet import Prophet

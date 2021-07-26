@@ -1,3 +1,4 @@
+- feat: 1.0.6 Minor updates & fix to adapt to fbprophet 0.7
 - docs: updated README.md and CHANGELOG.md
 - feat: add tox
 - docs: add license, issues, coverage, build badges

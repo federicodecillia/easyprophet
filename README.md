@@ -40,8 +40,7 @@ In short these are the recommended ordered steps to correctly install fbprophet:
 - CODE_OF_CONDUCT.md     <- Code of conduct to which contributors must adhere
 - LICENSE                <- License 
 - README.md              <- This File! Contains info & links about the project
-- requirements_dev.txt   <- Python package dependencies list for developers
-- requirements.txt       <- Python package dependencies list, required to run the project
+- requirements.txt       <- Python dependencies
 - setup.py               <- Build script for setuptools (to make the pack pip installable)
 - tox.ini                <- Contains info about the python tox test environment
 ```
