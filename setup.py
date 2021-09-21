@@ -24,7 +24,7 @@ setup(
         "pandas",
         "plotly",
         "scikit-learn",
-        "scipyf",
+        "scipy",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
