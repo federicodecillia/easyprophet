@@ -4,7 +4,7 @@ Credits
 Project Lead
 ----------------
 
-* Federico De Cillia
+* Federico De Cillia: federico.decillia@gmail.com
 
 <!-- Project Contributors
 ------------ -->
