@@ -14,18 +14,19 @@ It completely relies on the [**Prophet package**](https://github.com/facebook/pr
 The package is normally released on pypy, you can find it [**here**](https://pypi.org/project/easyprophet/), and install it easily on your environment by typing:
 `pip install easyprophet`
 
-fbprophet has its own installation instructions, please refer [here](https://facebook.github.io/prophet/docs/installation.html). \
-In short these are the recommended ordered steps to correctly install fbprophet:
-1. install c++ compiler: `conda install libpython m2w64-toolchain -c msys2`
-2. install pystan: `pip install pystan`
-3. install fbprophet: `pip install fbprophet`
+Note: Prophet requires pystan, that has its own [installation instructions](https://pystan2.readthedocs.io/en/latest/windows.html#windows)
+on windows. It's recommended to use Conda Environment, and to perform the following step-by-step installation:
+   1. Create and activate a conda environment: `conda create -n prophet_env`, `activate stan_env`
+   2. install c++ compiler: `conda install libpython m2w64-toolchain -c msys2`
+   3. install pystan dependencies through conda: `conda install numpy cython matplotlib scipy pandas pystan -c conda-forge`
+   4. install prophet: `pip install prophet`
+
+For more details about the installation of prophet, please check [the original documentation](https://facebook.github.io/prophet/docs/installation.html). 
 
 # Project Structure
 
 ```
 .
-<!-- - config                 <- Configuration files -->
-<!-- - docs                   <- Documentation -->
 - notebooks              <- Jupyter/Colab Notebooks containing easyprophet examples
 - src                    <- Source code for easy_prophet
     - easyprophet

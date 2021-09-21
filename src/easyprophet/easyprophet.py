@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 # from concurrent.futures import ProcessPoolExecutor
-from fbprophet import Prophet
-from fbprophet.plot import add_changepoints_to_plot
-from fbprophet.diagnostics import cross_validation
-from fbprophet.diagnostics import performance_metrics
-from fbprophet.plot import plot_plotly
+from prophet import Prophet
+from prophet.plot import add_changepoints_to_plot
+from prophet.diagnostics import cross_validation
+from prophet.diagnostics import performance_metrics
+from prophet.plot import plot_plotly
 import plotly.offline as py
 
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -113,7 +113,7 @@ def detect_anomalies(forecast: pd.DataFrame) -> pd.DataFrame:
         deltas between observed values and lower/upper values of the interval of confidence.
 
     Args:
-        forecast: input df containing the fbprophet predictions
+        forecast: input df containing the prophet predictions
 
     Returns:
         pd.DataFrame: df containing predictions + "anomaly" & "importance" variables

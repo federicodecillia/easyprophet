@@ -10,7 +10,7 @@ with open("README.md", "r") as readme_file:
 
 setup(
     name="easyprophet",  # directory name right below src/
-    version="1.0.7",
+    version="1.1.0",
     author="Federico De Cillia",
     description="Python package developed to simplify Prophet application to any data.",
     long_description=readme,
@@ -22,7 +22,9 @@ setup(
     install_requires=[
         "numpy",
         "pandas",
-        "scikit-learn"
+        "plotly",
+        "scikit-learn",
+        "scipyf",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
