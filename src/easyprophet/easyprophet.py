@@ -427,7 +427,8 @@ def forecast_x(
     for xi in x_vars:
         future_xi, mi, seasonalities_xi = fit_predict(
             df.drop(columns=["y"]).rename(columns={xi:"y"}),
-            freq_data=freq_data, future_pred_period=future_periods, holidays_country=holidays_country)
+            freq_data=freq_data, future_pred_period=future_pred_period,
+            holidays_country=holidays_country)
         # future_xi = future_xi[future_xi["fact"].isnull()]  # Keep only the forecast
         future_xi = future_xi[["ds","yhat"]].rename(columns={"yhat":xi}).copy()  # Keep only "ds" & "y"
         if future_x.empty:

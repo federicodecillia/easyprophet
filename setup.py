@@ -10,7 +10,7 @@ with open("README.md", "r") as readme_file:
 
 setup(
     name="easyprophet",  # directory name right below src/
-    version="1.2.0",
+    version="1.2.1",
     author="Federico De Cillia",
     description="Python package developed to simplify Prophet application to any data.",
     long_description=readme,
