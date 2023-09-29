@@ -285,6 +285,7 @@ def fit_predict(
             for x_i in x_vars:
                 m.add_regressor(x_i, prior_scale=None, standardize=x_standardize, mode=None)
         df_X = df[x_vars].copy().reset_index(drop=True)
+        df_orig = df.copy()
         df_X.columns = [str(col) + "_fact" for col in df_X.columns]
 
     # Add custom seasonalities
@@ -311,6 +312,29 @@ def fit_predict(
             df["cap"] = cap
         if isinstance(floor, (int, float)):
             df["floor"] = floor
+        if x_vars and future_pred_period:
+            future_x = forecast_x(
+                df=df_orig,
+                x_vars=x_vars,
+                freq_data=freq_data,
+                future_pred_period=future_pred_period,
+                growth=growth,
+                cap=cap,
+                floor=floor,
+                yearly_seasonality=yearly_seasonality,
+                weekly_seasonality=weekly_seasonality,
+                daily_seasonality=daily_seasonality,
+                custom_seasonality=custom_seasonality,
+                seasonality_mode=seasonality_mode,
+                seasonality_prior_scale=seasonality_prior_scale,
+                holidays_prior_scale=holidays_prior_scale,
+                holidays_country=holidays_country,
+                interval_width=interval_width,
+                changepoints=changepoints,
+                n_changepoints=n_changepoints,
+                changepoint_range=changepoint_range,
+                changepoint_prior_scale=changepoint_prior_scale)
+            df = pd.merge(df, future_x, on="ds", how="left")
     forecast = m.predict(df)
     forecast["fact"] = df_fact.reset_index(drop=True)
 
@@ -350,6 +374,67 @@ def fit_predict(
         list(["ds", "trend", "yhat", "yhat_lower", "yhat_upper", "fact"]) + seasonalities)]
     return forecast, m, seasonalities
 
+
+def forecast_x(
+    df: pd.DataFrame,
+    df_holidays: pd.DataFrame = None,
+    x_vars: str = False,
+    x_standardize: str = "auto",
+    plot_predictions: bool = False,
+    plot_pred_interactive: bool = False,
+    plot_components: bool = False,
+    freq_data: str = "D",
+    future_pred_period: int = False,
+    growth: str = "linear",
+    cap: float = False,
+    floor: float = False,
+    yearly_seasonality: str = "auto",
+    weekly_seasonality: str = "auto",
+    daily_seasonality: str = "auto",
+    custom_seasonality: list = False,
+    seasonality_mode: str = "additive",
+    seasonality_prior_scale: float = 10.0,
+    holidays_prior_scale: float = 10.0,
+    holidays_country: str = None,
+    interval_width: float = 0.95,
+    changepoints: list = None,
+    n_changepoints: int = 25,
+    changepoint_range: object = 0.8,
+    changepoint_prior_scale: float = 0.05,
+    mcmc_samples: int = 0,
+    uncertainty_samples: int = 1000):
+    """Generate future forecast for the exogenous variables 'x_vars' fitting a separate univariate
+        forecasts for each exogneous variable, then merge all of them in a single future_x df.
+
+    Args:
+        df: Dataframe with the past observation of the y.
+        df_holidays: Dataframe with the past observation of the holidays.
+        x_vars: Exogenous regressors used to fit y. Note: To predict the future, a df of future x_vars is required.
+        x_standardize: Whether to standardize the exogenous regressors. Can be 'auto', True, False.
+        plot_predictions: Whether to plot the predictions.
+        plot_pred_interactive: Whether to plot the predictions in an interactive window.
+        plot_components: Whether to plot the components of the forecast.
+        freq_data: Frequency of the data.
+        future_pred_period: Number of periods to forecast.
+        growth: Growth of the time series. Can be 'linear', 'logistic', 'quadratic', 'cubic'.
+        cap: Cap of the time series.
+        floor: Floor of the time series.
+
+    Returns:
+        (pd.DataFrame): Dataframe with the future predictions."""
+
+    future_x = pd.DataFrame()
+    for xi in x_vars:
+        future_xi, mi, seasonalities_xi = fit_predict(
+            df.drop(columns=["y"]).rename(columns={xi:"y"}),
+            freq_data=freq_data, future_pred_period=future_periods, holidays_country=holidays_country)
+        # future_xi = future_xi[future_xi["fact"].isnull()]  # Keep only the forecast
+        future_xi = future_xi[["ds","yhat"]].rename(columns={"yhat":xi}).copy()  # Keep only "ds" & "y"
+        if future_x.empty:
+            future_x = future_xi.copy()
+        else:
+            future_x = pd.merge(future_x, future_xi, on="ds")
+    return future_x
 
 def list_seasonalities(
     yearly_seasonality: str = False,
